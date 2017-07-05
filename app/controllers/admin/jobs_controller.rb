@@ -1,5 +1,6 @@
 class Admin::JobsController < ApplicationController
   before_action :authenticate_user!
+  before_action :require_is_admin
 
   def index
     @jobs = Job.all
@@ -50,6 +51,15 @@ class Admin::JobsController < ApplicationController
   def job_params
     params.require(:job).permit(:title, :description)
   end
+
+  def require_is_admin
+    if current_user.is_admin?
+      flash[:alert] = "you are not admin"
+      redirect_to admin_jobs_path
+    end
+  end
+
+
 
 
 end
