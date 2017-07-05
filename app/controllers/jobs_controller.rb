@@ -2,7 +2,14 @@ class JobsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :update, :edit, :destroy]
 
   def index
-    @jobs = Job.published.recent
+    @jobs = case params[:order]
+    when "wage_lower_bound"
+      Job.published.order("lower_wage_bound DESC")
+    when "wage_upper_bound"
+      Job.published.order("upper_wage_bound DESC")
+    else
+      Job.published.recent
+    end
   end
 
   def show

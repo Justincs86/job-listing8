@@ -1,6 +1,20 @@
-<div class="pull-right">
-    <%= link_to("Add a Job", new_job_path, class: "btn btn-default") %>
+<div class="dropdown pull-right">
+  <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    List
+  </button>
+
+  <ul class="dropdown-menu">
+    <li>
+        <%= link_to("by_lower_bound", jobs_path(:order => "wage_lower_bound")) %>
+    </li>
+    <li>
+        <%= link_to("by_upper_bound", jobs_path(:order => "wage_upper_bound")) %>
+    </li><li>
+        <%= link_to("list", jobs_path) %>
+    </li>
+  </ul>
 </div>
+
 <br><br><br>
 
 
@@ -8,7 +22,8 @@
   <thead>
       <tr>
           <th> Title</th>
-          <th> Description</th>
+          <th> Lower_wage_bound</th>
+          <th> Upper_wage_bound</th>
           <th> Option</th>
       </tr>
   </thead>
@@ -16,7 +31,8 @@
     <% @jobs.each do |job| %>
       <tr>
           <td><%= link_to(job.title, job_path(job)) %> </td>
-          <td> <%= job.description %></td>
+          <td> <%= job.lower_wage_bound %></td>
+          <td> <%= job.upper_wage_bound %></td>
           <td>
             <%= link_to("Edit", edit_job_path(job), class: "btn btn-success") %>
             <%= link_to("Delete", job_path(job), method: :delete, :data => { :confirm => "Are you sure?" }, class: "btn btn-danger") %>
