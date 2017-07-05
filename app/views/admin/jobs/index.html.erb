@@ -8,7 +8,9 @@
   <thead>
       <tr>
           <th> Title</th>
-          <th> Description</th>
+          <th> Resume</th>
+          <th> Lower_wage_bound</th>
+          <th> Upper_wage_bound</th>
           <th> Option</th>
       </tr>
   </thead>
@@ -19,7 +21,9 @@
             <%= render_job_status(job) %>
              <%= link_to(job.title, job_path(job)) %>
            </td>
-          <td> <%= job.description %></td>
+          <td> <%= link_to(job.resumes.count, admin_job_resumes_path(job)) %></td>
+          <td> <%= job.lower_wage_bound %></td>
+          <td> <%= job.upper_wage_bound %></td>
           <td>
             <%= link_to("Edit", edit_admin_job_path(job), class: "btn btn-success") %>
             <%= link_to("Delete", admin_job_path(job), method: :delete, :data => { :confirm => "Are you sure?" }, class: "btn btn-danger") %>
